@@ -16,7 +16,7 @@ const SomeText = () => {
   return (
     <Grid gap={2}>
       <Heading as="h2" fontSize={{ base: "lg", sm: "3xl" }}>
-        Hello
+        Welcome to Seraph 👋
       </Heading>
 
       <Box
@@ -25,7 +25,8 @@ const SomeText = () => {
         borderRadius={4}
       >
         <Box fontSize={textSize}>
-          This is a Next.js app with Chakra-UI and TypeScript setup.
+          Seraph makes it easy for you to share your code snippets easily. Just
+          write!
         </Box>
       </Box>
     </Grid>

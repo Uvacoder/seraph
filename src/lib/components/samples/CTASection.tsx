@@ -1,7 +1,8 @@
-import { Box, Button, Code, Flex, Image, Link } from "@chakra-ui/react";
+import { Box, Button, Code, Flex, Link } from "@chakra-ui/react";
 import { AiFillGithub } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
 
-const repoLink = "https://github.com/sozonome/nextarter-chakra";
+const repoLink = "https://github.com/lucky-chap/seraph";
 
 const CTASection = () => {
   return (
@@ -11,41 +12,33 @@ const CTASection = () => {
         justifyContent={{ base: "center", md: "left" }}
         gridGap={2}
       >
-        <Link
-          aria-label="Deploy to Vercel"
-          isExternal
-          rel="noopener noreferrer"
-          href="https://vercel.com/import/git?s=https://github.com/sozonome/nextarter-chakra"
-        >
-          <Image src="https://vercel.com/button" alt="Vercel deploy button" />
-        </Link>
-
-        <Link
-          aria-label="Deploy to Netlify"
-          isExternal
-          rel="noopener noreferrer"
-          href="https://app.netlify.com/start/deploy?repository=https://github.com/sozonome/nextarter-chakra"
-        >
-          <Image
-            src="https://www.netlify.com/img/deploy/button.svg"
-            alt="Netlify deploy button"
-          />
-        </Link>
-      </Flex>
-
-      <Box marginY={2}>
-        <Code>npx degit sozonome/nextarter-chakra {"<YOUR_APP_NAME>"}</Code>
-        <br />
-
         <Button
-          marginTop={2}
           as="a"
-          href="https://github.com/sozonome/nextarter-chakra/generate"
+          href={repoLink}
           target="_blank"
+          leftIcon={<FcGoogle />}
           size="sm"
         >
-          Use This Template
+          Continue with Google
         </Button>
+
+        <Button
+          as="a"
+          href={repoLink}
+          target="_blank"
+          leftIcon={<AiFillGithub />}
+          size="sm"
+        >
+          Login with GitHub
+        </Button>
+      </Flex>
+
+      <Box mt={3}>
+        <Code>
+          This app is heavily inspired by{" "}
+          <Link href="https://github.com/MaxLeiter">@maxleiter</Link>
+        </Code>
+        <br />
       </Box>
 
       <Flex
@@ -59,16 +52,17 @@ const CTASection = () => {
           target="_blank"
           leftIcon={<AiFillGithub />}
           size="sm"
+          mt={3}
         >
-          Open in Github
+          Source Code
         </Button>
-        <Link href={repoLink} isExternal rel="noopener noreferrer">
+        {/* <Link href={repoLink} isExternal rel="noopener noreferrer">
           <Image
             align="center"
             src="https://img.shields.io/github/stars/sozonome/nextarter-chakra?style=social"
             alt="github stars"
           />
-        </Link>
+        </Link> */}
       </Flex>
     </Box>
   );

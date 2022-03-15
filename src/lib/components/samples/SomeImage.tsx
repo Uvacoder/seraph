@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Flex, useColorMode } from "@chakra-ui/react";
 import Image from "next/image";
 
 import MotionBox from "lib/components/motion/Box";
@@ -18,13 +18,13 @@ const SomeImage = () => {
         marginX="auto"
       >
         <Image
-          src="/Launching-amico.svg"
+          src="/Hand coding-pana.svg"
           width={400}
           height={400}
           alt="Launching Illustration"
         />
       </MotionBox>
-      <Text textAlign="center" fontSize="xs">
+      {/* <Text textAlign="center" fontSize="xs">
         <Link
           href="https://stories.freepik.com/web"
           isExternal
@@ -32,7 +32,7 @@ const SomeImage = () => {
         >
           Illustration by Freepik Stories
         </Link>
-      </Text>
+      </Text> */}
 
       <Flex marginY={4} justifyContent="center" alignItems="center">
         <HelperImage src={`/nextjs-icon-${colorMode}.svg`} label="NextJS" />
