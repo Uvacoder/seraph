@@ -1,4 +1,5 @@
 import { Box, Button, Code, Flex, Link } from "@chakra-ui/react";
+import { signIn } from "next-auth/react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
@@ -11,23 +12,22 @@ const CTASection = () => {
         marginY={4}
         justifyContent={{ base: "center", md: "left" }}
         gridGap={2}
+        flexDirection={{ base: "column", sm: "row" }}
       >
         <Button
-          as="a"
-          href={repoLink}
-          target="_blank"
+          onClick={() => signIn("google")}
           leftIcon={<FcGoogle />}
           size="sm"
+          px={3}
         >
           Continue with Google
         </Button>
 
         <Button
-          as="a"
-          href={repoLink}
-          target="_blank"
+          onClick={() => signIn("github")}
           leftIcon={<AiFillGithub />}
           size="sm"
+          px={3}
         >
           Login with GitHub
         </Button>

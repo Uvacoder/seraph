@@ -21,6 +21,7 @@ const SomeImage = () => {
           src="/Hand coding-pana.svg"
           width={400}
           height={400}
+          priority
           alt="Launching Illustration"
         />
       </MotionBox>
