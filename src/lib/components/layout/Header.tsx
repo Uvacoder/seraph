@@ -6,7 +6,7 @@ import ThemeToggle from "./ThemeToggle";
 const Header = () => {
   return (
     <Flex as="header" width="full" align="center">
-      <Heading as="h1" size="md">
+      <Heading as="h1" size="lg">
         <Link href="/">seraph</Link>
       </Heading>
 
