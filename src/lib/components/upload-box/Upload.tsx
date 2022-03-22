@@ -1,7 +1,21 @@
 /* eslint-disable no-console */
-import { useColorMode } from "@chakra-ui/react";
-import { useMemo, useCallback } from "react";
+import {
+  Box,
+  Input,
+  Select,
+  Menu,
+  MenuButton,
+  Button,
+  MenuList,
+  MenuItem,
+  useColorMode,
+} from "@chakra-ui/react";
+import { useMemo, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { BsArrowDownShort } from "react-icons/bs";
+
+import Preview from "../preview/Preview";
+import { languagesList } from "lib/helpers";
 
 const baseStyleLight = {
   flex: 1,
@@ -48,6 +62,7 @@ const rejectStyle = {
 };
 
 export default function UploadBox() {
+  const [content, setContent] = useState<string | ArrayBuffer | null>("");
   const { colorMode } = useColorMode();
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -59,7 +74,8 @@ export default function UploadBox() {
       reader.onload = () => {
         // Do whatever you want with the file contents
         const { result } = reader;
-        console.log(result);
+        // console.log(result);
+        setContent(result);
         // console.log(reader.readAsText(file));
       };
       reader.readAsText(file);
@@ -67,7 +83,7 @@ export default function UploadBox() {
   }, []);
 
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
-    useDropzone({ accept: "text/*", onDrop });
+    useDropzone({ onDrop });
 
   const style: object = useMemo(
     () => ({
@@ -80,11 +96,57 @@ export default function UploadBox() {
   );
 
   return (
-    <div className="container">
-      <div {...getRootProps({ style })}>
-        <input {...getInputProps()} />
-        <p>Drag and drop some files here, or click to select files</p>
+    <>
+      <div className="container">
+        <div {...getRootProps({ style })}>
+          <input {...getInputProps()} />
+          <p>Drag and drop some files here, or click to select files</p>
+        </div>
       </div>
-    </div>
+
+      {content && (
+        <Box mt={7}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignContent="center"
+          >
+            <Input w="30%" variant="filled" placeholder="File name" />
+
+            <Select variant="filled" placeholder="Choose Language" w="50%">
+              {/* <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option> */}
+              {languagesList.map((language) => (
+                <option value={language.name} key={language.id}>
+                  {language.name}
+                </option>
+              ))}
+            </Select>
+          </Box>
+          <Preview content={content} />
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            alignContent="center"
+            mt={4}
+          >
+            <Menu>
+              <MenuButton
+                as={Button}
+                borderRadius={5}
+                rightIcon={<BsArrowDownShort />}
+              >
+                Save
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Private</MenuItem>
+                <MenuItem>Public</MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
+        </Box>
+      )}
+    </>
   );
 }

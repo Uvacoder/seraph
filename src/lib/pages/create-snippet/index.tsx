@@ -1,10 +1,22 @@
 import { Box, Heading, Input } from "@chakra-ui/react";
-// import { Prism } from "@mantine/prism";
+// import Cookies from "js-cookie";
 import Link from "next/link";
+// import { useRouter } from "next/router";
+// import { useCallback, useState } from "react";
 
 import UploadBox from "../../components/upload-box/Upload";
+// import { Prism } from "@mantine/prism";
+
+export type Document = {
+  title: string;
+  content: string;
+  id?: string;
+};
 
 const CreateSnippet = () => {
+  // const toast = useToast();
+  // const router = useRouter();
+
   return (
     <Box minHeight="70vh" gap={8} my={8}>
       <Box

@@ -19,3 +19,11 @@ module.exports = withPWA({
     dirs: ["src"],
   },
 });
+
+
+// This is done so I can transpile modules from "react-syntax-highlighter"
+// https://stackoverflow.com/questions/65936222/next-js-syntaxerror-unexpected-token-export
+
+const withTM = require("next-transpile-modules")(["react-syntax-highlighter"]); // pass the modules you would like to see transpiled
+
+module.exports = withTM({});
