@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 import {
   Box,
@@ -9,13 +10,19 @@ import {
   MenuList,
   MenuItem,
   useColorMode,
+  useToast,
+  Text,
 } from "@chakra-ui/react";
 import { useMemo, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { BsArrowDownShort } from "react-icons/bs";
 
 import Preview from "../preview/Preview";
-import { languagesList } from "lib/helpers";
+import {
+  languagesList,
+  allowedFileExtensions,
+  allowedFileNames,
+  allowedFileTypes,
+} from "lib/helpers";
 
 const baseStyleLight = {
   flex: 1,
@@ -62,11 +69,20 @@ const rejectStyle = {
 };
 
 export default function UploadBox() {
-  const [content, setContent] = useState<string | ArrayBuffer | null>("");
+  const [contents, setContents] = useState<string[] | null>([]);
+  const [type, setType] = useState<string>("");
+
+  const toast = useToast();
+
+  const handleType = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    console.log(e.target.value);
+    setType(e.target.value);
+  };
+
   const { colorMode } = useColorMode();
 
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file: Blob) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    acceptedFiles.forEach((file: File) => {
       const reader = new FileReader();
 
       reader.onabort = () => console.log("file reading was aborted");
@@ -74,16 +90,45 @@ export default function UploadBox() {
       reader.onload = () => {
         // Do whatever you want with the file contents
         const { result } = reader;
-        // console.log(result);
-        setContent(result);
+        // console.log(typeof result);
         // console.log(reader.readAsText(file));
+        setContents((prevState) => [
+          result as string,
+          ...(prevState as string[]),
+        ]);
       };
       reader.readAsText(file);
     });
   }, []);
 
+  const validator = (file: File) => {
+    // TODO: make this configurable
+    const maxFileSize = 1000000;
+
+    if (file.size > maxFileSize) {
+      return {
+        code: "file-too-big",
+        message: `File is too big. Maximum file size is ${maxFileSize.toFixed(
+          2
+        )} MB.`,
+      };
+    }
+    // We initially try to use the browser provided mime type, and then fall back to file names and finally extensions
+    if (
+      allowedFileTypes.includes(file.type) ||
+      allowedFileNames.includes(file.name) ||
+      allowedFileExtensions.includes(file.name?.split(".").pop() || "")
+    ) {
+      return null;
+    }
+    return {
+      code: "not-plain-text",
+      message: `Only plain text files are allowed.`,
+    };
+  };
+
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
-    useDropzone({ onDrop });
+    useDropzone({ onDrop, validator });
 
   const style: object = useMemo(
     () => ({
@@ -104,46 +149,58 @@ export default function UploadBox() {
         </div>
       </div>
 
-      {content && (
+      {contents && (
         <Box mt={7}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignContent="center"
-          >
-            <Input w="30%" variant="filled" placeholder="File name" />
+          <Text fontSize="xs" mb={2}>
+            <sup>*</sup>Choose the language for better syntax highlighting
+          </Text>
+          {contents.map((content, index) => (
+            <Box key={Math.floor(Math.random() * 103975803405 + index)}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignContent="center"
+                mt={12}
+              >
+                <Input w="30%" variant="filled" placeholder="File name" />
 
-            <Select variant="filled" placeholder="Choose Language" w="50%">
-              {/* <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option> */}
-              {languagesList.map((language) => (
-                <option value={language.name} key={language.id}>
-                  {language.name}
-                </option>
-              ))}
-            </Select>
-          </Box>
-          <Preview content={content} />
+                <Select
+                  variant="filled"
+                  placeholder="Choose Language"
+                  w="40%"
+                  onChange={(e) => handleType(e)}
+                >
+                  {languagesList.map((language) => (
+                    <option value={language.name} key={language.id}>
+                      {language.name}
+                    </option>
+                  ))}
+                </Select>
+              </Box>
+              <Preview content={content} language={type} />
+            </Box>
+          ))}
           <Box
             display="flex"
             justifyContent="flex-end"
             alignContent="center"
-            mt={4}
+            mt={10}
           >
-            <Menu>
-              <MenuButton
-                as={Button}
-                borderRadius={5}
-                rightIcon={<BsArrowDownShort />}
-              >
-                Save
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Private</MenuItem>
-                <MenuItem>Public</MenuItem>
-              </MenuList>
-            </Menu>
+            {contents.length > 0 && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  borderRadius={5}
+                  w={{ base: "100%", sm: "50%" }}
+                >
+                  Save
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Private</MenuItem>
+                  <MenuItem>Public</MenuItem>
+                </MenuList>
+              </Menu>
+            )}
           </Box>
         </Box>
       )}

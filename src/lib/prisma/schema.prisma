@@ -58,13 +58,10 @@ model Snippet {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   title         String      @db.VarChar(255)
-  siteName      String
-  description   String
-  image         String
-  favicon       String
   author        User        @relation(fields: [authorId], references: [id])
   authorId      String
   files         File[]
+  visibility    String
 }
 
 
@@ -72,8 +69,9 @@ model File {
   id          String      @id @default(cuid())
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-  title       String
+  fileName    String
   content     String
+  language    String
   sha         String
   author      User        @relation(fields: [authorId], references: [id])
   authorId    String

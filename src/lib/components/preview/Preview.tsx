@@ -18,12 +18,13 @@ type PreviewProps = {
   editable?: boolean;
   remove?: () => void;
   title?: string;
-  content?: string | ArrayBuffer | null;
+  content?: string | null;
   setTitle?: (title: string) => void;
   setContent?: (content: string) => void;
   initialTab?: "edit" | "preview";
   skeleton?: boolean;
   id?: string;
+  language: string;
 };
 
 const DownloadButton = ({ rawLink }: { rawLink?: string }) => {
@@ -46,22 +47,9 @@ const Preview = ({
   initialTab = "edit",
   skeleton,
   id,
+  language,
 }: PreviewProps) => {
   const { colorMode } = useColorMode();
-  const getType = useMemo(() => {
-    if (!title) return;
-    const pathParts = title.split(".");
-    // the language
-    return pathParts.length > 1 ? pathParts[pathParts.length - 1] : "";
-  }, [title]);
-
-  const rawLink = useMemo(() => {
-    if (id) {
-      return `/file/raw/${id}`;
-    }
-  }, [id]);
-
-  console.log(getType);
 
   return (
     // <Box mt={7} transition="0.5s ease-out" backgroundColor="inherit">
@@ -71,7 +59,7 @@ const Preview = ({
       <SyntaxHighlighter
         showLineNumbers
         customStyle={{}}
-        language="javascript"
+        language={language}
         style={colorMode === "light" ? light : dark}
       >
         {content}
