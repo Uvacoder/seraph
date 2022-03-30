@@ -7,12 +7,6 @@ import Link from "next/link";
 import UploadBox from "../../components/upload-box/Upload";
 // import { Prism } from "@mantine/prism";
 
-export type Document = {
-  title: string;
-  content: string;
-  id?: string;
-};
-
 const CreateSnippet = () => {
   // const toast = useToast();
   // const router = useRouter();

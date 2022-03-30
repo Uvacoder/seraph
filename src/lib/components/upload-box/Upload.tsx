@@ -23,6 +23,7 @@ import {
   allowedFileNames,
   allowedFileTypes,
 } from "lib/helpers";
+import type { Document } from "lib/types/Document";
 
 const baseStyleLight = {
   flex: 1,
@@ -69,14 +70,15 @@ const rejectStyle = {
 };
 
 export default function UploadBox() {
-  const [contents, setContents] = useState<string[] | null>([]);
-  const [type, setType] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [docs, setDocs] = useState<Document[] | null>([]);
+  const [type, setType] = useState<string | undefined>(undefined);
 
   const toast = useToast();
 
-  const handleType = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    console.log(e.target.value);
-    setType(e.target.value);
+  const handleRemove = (file: Document): void => {
+    const newDocs = docs?.filter((doc) => doc.fileName !== file.fileName);
+    setDocs(newDocs as Document[]);
   };
 
   const { colorMode } = useColorMode();
@@ -90,12 +92,18 @@ export default function UploadBox() {
       reader.onload = () => {
         // Do whatever you want with the file contents
         const { result } = reader;
-        // console.log(typeof result);
+        console.log(file.name);
         // console.log(reader.readAsText(file));
-        setContents((prevState) => [
-          result as string,
-          ...(prevState as string[]),
+        setTitle(file.name);
+        setDocs((prevState) => [
+          {
+            fileName: file.name,
+            extension: file.name.split(".")[1],
+            content: reader.result as string,
+          },
+          ...(prevState as Document[]),
         ]);
+        setType(file.name);
       };
       reader.readAsText(file);
     });
@@ -149,35 +157,14 @@ export default function UploadBox() {
         </div>
       </div>
 
-      {contents && (
+      {docs?.length !== 0 && (
         <Box mt={7}>
           <Text fontSize="xs" mb={2}>
-            <sup>*</sup>Choose the language for better syntax highlighting
+            <sup>*</sup>Syntax highlighting is not supported for all file types.
           </Text>
-          {contents.map((content, index) => (
+          {docs?.map((doc, index) => (
             <Box key={Math.floor(Math.random() * 103975803405 + index)}>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignContent="center"
-                mt={12}
-              >
-                <Input w="30%" variant="filled" placeholder="File name" />
-
-                <Select
-                  variant="filled"
-                  placeholder="Choose Language"
-                  w="40%"
-                  onChange={(e) => handleType(e)}
-                >
-                  {languagesList.map((language) => (
-                    <option value={language.name} key={language.id}>
-                      {language.name}
-                    </option>
-                  ))}
-                </Select>
-              </Box>
-              <Preview content={content} language={type} />
+              <Preview doc={doc} remove={handleRemove} />
             </Box>
           ))}
           <Box
@@ -186,12 +173,12 @@ export default function UploadBox() {
             alignContent="center"
             mt={10}
           >
-            {contents.length > 0 && (
+            {docs?.length !== 0 && (
               <Menu>
                 <MenuButton
                   as={Button}
                   borderRadius={5}
-                  w={{ base: "100%", sm: "50%" }}
+                  w={{ base: "100%", sm: "40%" }}
                 >
                   Save
                 </MenuButton>
