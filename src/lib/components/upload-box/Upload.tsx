@@ -70,9 +70,7 @@ const rejectStyle = {
 };
 
 export default function UploadBox() {
-  const [title, setTitle] = useState<string>("");
   const [docs, setDocs] = useState<Document[] | null>([]);
-  const [type, setType] = useState<string | undefined>(undefined);
 
   const toast = useToast();
 
@@ -91,19 +89,14 @@ export default function UploadBox() {
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = () => {
         // Do whatever you want with the file contents
-        const { result } = reader;
-        console.log(file.name);
-        // console.log(reader.readAsText(file));
-        setTitle(file.name);
         setDocs((prevState) => [
           {
             fileName: file.name,
-            extension: file.name.split(".")[1],
+            extension: file.name.split(".").pop() as string,
             content: reader.result as string,
           },
           ...(prevState as Document[]),
         ]);
-        setType(file.name);
       };
       reader.readAsText(file);
     });
@@ -111,7 +104,7 @@ export default function UploadBox() {
 
   const validator = (file: File) => {
     // TODO: make this configurable
-    const maxFileSize = 1000000;
+    const maxFileSize = 2000000;
 
     if (file.size > maxFileSize) {
       return {
@@ -133,6 +126,13 @@ export default function UploadBox() {
       code: "not-plain-text",
       message: `Only plain text files are allowed.`,
     };
+    // return toast({
+    //   title: "File type not allowed",
+    //   description: `Only plain text files are allowed.`,
+    //   status: "error",
+    //   duration: 3500,
+    //   isClosable: true,
+    // })
   };
 
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =

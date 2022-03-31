@@ -50,7 +50,6 @@ model User {
   accounts          Account[]
   sessions          Session[]
   snippets          Snippet[]
-  files             File[]
 }
 
 model Snippet {
@@ -71,10 +70,7 @@ model File {
   updatedAt   DateTime    @updatedAt
   fileName    String
   content     String
-  language    String
-  sha         String
-  author      User        @relation(fields: [authorId], references: [id])
-  authorId    String
+  extension   String
   snippet     Snippet     @relation(fields: [snippetId], references: [id])
   snippetId   String
 }
