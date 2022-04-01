@@ -35,11 +35,13 @@ export default async function handler(
           visibility,
           authorId: user?.id as string,
           files: {
-            create: files.map((file: Document) => ({
-              fileName: file.fileName,
-              content: file.content,
-              extension: file.extension,
-            })),
+            create: [
+              files.map((file: Document) => ({
+                fileName: file.fileName,
+                content: file.content,
+                extension: file.extension,
+              })),
+            ],
           },
         },
       })

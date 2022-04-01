@@ -17,7 +17,7 @@ import dark from "react-syntax-highlighter/dist/esm/styles/prism/nord";
 
 import type { Document } from "lib/types/Document";
 
-type PreviewProps = {
+export type PreviewProps = {
   // editable?: boolean;
   remove: (file: Document) => void;
   // title?: string;
@@ -53,13 +53,14 @@ const Preview = ({ doc, remove }: PreviewProps) => {
         mt={12}
       >
         <Input
-          w="30%"
+          w={{ base: "80%", sm: "60%", md: "40%" }}
           variant="filled"
           placeholder="File name"
           defaultValue={doc.fileName}
+          isReadOnly
         />
         <Box onClick={() => remove(doc)}>
-          <Button borderRadius={5}>
+          <Button borderRadius={5} ml={2}>
             <AiOutlineDelete />
           </Button>
         </Box>

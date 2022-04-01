@@ -1,13 +1,13 @@
 import { Box, Heading, Input } from "@chakra-ui/react";
 // import { useRouter } from "next/router";
-// import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import UploadBox from "../../components/upload-box/Upload";
-// import { Prism } from "@mantine/prism";
 
 const CreateSnippet = () => {
   // const toast = useToast();
   // const router = useRouter();
+  const [snippetName, setSnippetName] = useState<string>("");
 
   return (
     <Box minHeight="70vh" gap={8} my={8}>
@@ -25,18 +25,14 @@ const CreateSnippet = () => {
           w="100%"
           variant="filled"
           placeholder="Name the snippet"
-          mt={4}
+          value={snippetName}
+          onChange={(e) => setSnippetName(e.target.value)}
+          mt={2}
         />
       </Box>
 
       <Box w="full" mt={8}>
-        <UploadBox />
-      </Box>
-
-      <Box w="full" mt={12}>
-        {/* <Prism>
-
-        </Prism> */}
+        <UploadBox snippetName={snippetName} />
       </Box>
     </Box>
   );

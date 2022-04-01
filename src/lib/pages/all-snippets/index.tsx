@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/destructuring-assignment */
 import {
   Box,
   Heading,
@@ -5,14 +8,21 @@ import {
   Button,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { PrismaClient } from "@prisma/client";
+import type { GetServerSideProps } from "next";
+import { useSession, getSession } from "next-auth/react";
 import { AiOutlineDelete } from "react-icons/ai";
-// import { useRouter } from "next/router";
-// import { useCallback, useState } from "react";
 
-const AllSnippets = () => {
-  // const toast = useToast();
-  // const router = useRouter();
+// import { prisma } from "lib/prisma/prisma";
+import type { Document as Snippet } from "lib/types/Document";
 
+type Props = {
+  snippets: Snippet[];
+};
+
+const AllSnippets = (props: Props) => {
+  const { data: session, status } = useSession();
+  console.log(props.snippets);
   return (
     <Box minHeight="70vh" gap={8} my={8}>
       <Box
@@ -82,3 +92,20 @@ const AllSnippets = () => {
 };
 
 export default AllSnippets;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const prisma = new PrismaClient();
+  const session = await getSession({ req });
+  const snippets = await prisma.snippet.findMany({
+    where: {
+      author: {
+        email: session?.user?.email,
+      },
+    },
+  });
+  return {
+    props: {
+      snippets,
+    },
+  };
+};
