@@ -1,6 +1,4 @@
 import { Box, Heading, Input } from "@chakra-ui/react";
-// import Cookies from "js-cookie";
-import Link from "next/link";
 // import { useRouter } from "next/router";
 // import { useCallback, useState } from "react";
 
@@ -20,7 +18,7 @@ const CreateSnippet = () => {
         w="full"
       >
         <Heading as="h1" size="md" w="100%" mt={4}>
-          <Link href="/">Create Snippet</Link>
+          Create Snippet
         </Heading>
 
         <Input
