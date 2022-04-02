@@ -1,13 +1,39 @@
-# seraph
+# seraph - code snippets sharing platform ⚡🚀
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/git?s=https://github.com/sozonome/seraph) [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/sozonome/seraph)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/git?s=https://github.com/lucky-chap/seraph) [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/lucky-chap/seraph)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sozonome/seraph)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/lucky-chap/seraph)
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), added with [**Chakra UI**](https://chakra-ui.com) and [**TypeScript**](https://www.typescriptlang.org) setup.
-Start developing right away!
+## About
 
-## 🔋⚡ Battery Packed template
+Seraph is a platform built for sharing code snippets. Sharing feature is currently under development though 🥲. With Seraph, you can send code snippets over social media, have private snippets and more. Give it a try, you wouldn't be disappointed 😍
+
+## Getting Started
+
+- Run this in the command line to clone
+
+```bash
+git clone https://github.com/lucky-chap/seraph.git
+```
+
+- Then, `cd` into the directory `seraph`.
+- Create a new file in the root directory called `.env` and copy the contents 
+of [.env.example](./.env.example) into `.env`
+- Fill with your own credentials. After, do this:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Contributing
+If you want to help me make this project better, please do so. I'd really appreciate it.
+ Please follow the guidelines in [CONTRIBUTING.md](./CONTRIBUTING.md) to get started
+
+## 🔋⚡ A few goodies in seraph
 
 - ✔️ toolings for linting, formatting, and conventions configured
 
@@ -21,36 +47,10 @@ Start developing right away!
 
   with `next-seo` and `next-sitemap`. you'll need to reconfigure or tinker with it to get it right according to your needs, but it's there if you need it.
 
-- 🎨 basic responsive layout configured
+- 🎨 responsive layout configured
 
-  don't need it? just remove it 😃
+[![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://typescriptlang.org)
 
-[![CodeFactor](https://www.codefactor.io/repository/github/sozonome/seraph/badge)](https://www.codefactor.io/repository/github/sozonome/seraph)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sozonome_seraph&metric=alert_status)](https://sonarcloud.io/dashboard?id=sozonome_seraph) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sozonome_seraph&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=sozonome_seraph) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sozonome_seraph&metric=bugs)](https://sonarcloud.io/dashboard?id=sozonome_seraph) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sozonome_seraph&metric=code_smells)](https://sonarcloud.io/dashboard?id=sozonome_seraph) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sozonome_seraph&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=sozonome_seraph)
-
-[![Depfu](https://badges.depfu.com/badges/9e426e58f99c3bd470987a3c6b014a96/overview.svg)](https://depfu.com/github/sozonome/seraph?project_id=26148) [![Depfu](https://badges.depfu.com/badges/9e426e58f99c3bd470987a3c6b014a96/count.svg)](https://depfu.com/github/sozonome/seraph?project_id=26148)
-
-[![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://forthebadge.com)
-
-## Getting Started
-
-You can either click `Use this template` button on this repository and clone the repo or directly from your terminal:
-
-```bash
-npx degit sozonome/seraph <YOUR_APP_NAME>
-```
-
-Then, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `src/pages/index.js`. The page auto-updates as you edit the file.
 
 ## References
 

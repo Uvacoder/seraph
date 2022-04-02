@@ -10,7 +10,7 @@ const Footer = () => {
           isExternal
           rel="noopener noreferrer"
         >
-          Quavo
+          seraph
         </Link>
       </Text>
     </Flex>
