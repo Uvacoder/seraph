@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+import { getSession } from "next-auth/react";
+
 import AllSnippets from "lib/pages/all-snippets";
 import { prisma } from "lib/prisma/prisma";
 import type { Document } from "lib/types/Document";
@@ -17,8 +19,16 @@ export default function Index({ snippets }: { snippets: SnippetProps[] }) {
   return <AllSnippets snippets={snippets} />;
 }
 
-export async function getServerSideProps() {
-  const snippets = await prisma.snippet.findMany();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getServerSideProps({ req }: { req: any }) {
+  const session = await getSession({ req });
+  const snippets = await prisma.snippet.findMany({
+    where: {
+      author: {
+        email: session?.user?.email,
+      },
+    },
+  });
   //   snippets.forEach((snippet) => {
   //     snippet.createdAt =
   //       snippet.createdAt.toLocaleDateString() as unknown as Date;

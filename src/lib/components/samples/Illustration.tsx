@@ -27,7 +27,7 @@ const Illustration = () => {
       </MotionBox>
       {/* <Text textAlign="center" fontSize="xs">
         <Link
-          href="https://stories.freepik.com/web"
+          href="https://www.freepik.com/stories
           isExternal
           rel="noopener noreferrer"
         >

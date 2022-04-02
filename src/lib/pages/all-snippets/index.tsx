@@ -7,9 +7,11 @@ import {
   Text,
   Badge,
   Button,
+  useToast,
   useColorMode,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -20,6 +22,41 @@ const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { colorMode } = useColorMode();
+  const toast = useToast();
+
+  const removeSnippet = (snippetId: string) => {
+    if (session && session.user) {
+      fetch(`/api/snippets/delete/${snippetId}`, {
+        method: "DELETE",
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            toast({
+              title: "Success",
+              description: "Snippet deleted",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+              position: "top-end",
+            });
+            router.push("/snippets");
+          } else {
+            toast({
+              title: "Error",
+              description: "Something went wrong",
+              status: "error",
+              duration: 3000,
+              isClosable: true,
+              position: "top-end",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   if (status === "unauthenticated") {
     router.push("/");
   }
@@ -86,18 +123,19 @@ const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
                 alignItems="flex-end"
                 cursor="pointer"
               >
-                {/* <Button
+                <Button
                   borderRadius={5}
                   bg={colorMode === "light" ? "gray.300" : "gray.800"}
+                  onClick={() => removeSnippet(snippet.id)}
                 >
                   <AiOutlineDelete />
-                </Button> */}
+                </Button>
               </Box>
             </Box>
           ))
         ) : (
-          <Box display="grid" placeContent="center" height="45vh">
-            <Text>You don&apos;t have any snippets yet.</Text>
+          <Box display="grid" placeContent="center" height="55vh">
+            <Text>Oops! You don&apos;t have any snippets yet. 🥲</Text>
           </Box>
         )}
       </Box>

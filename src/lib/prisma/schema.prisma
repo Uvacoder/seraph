@@ -71,7 +71,7 @@ model File {
   fileName    String
   content     String
   extension   String
-  snippet     Snippet     @relation(fields: [snippetId], references: [id])
+  snippet     Snippet     @relation(fields: [snippetId], references: [id], onDelete: Cascade)
   snippetId   String
 }
 

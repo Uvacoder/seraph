@@ -1,6 +1,8 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import Link from "next/link";
 
+import DotMenu from "../samples/DotMenu";
+
 import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
@@ -10,9 +12,14 @@ const Header = () => {
         <Link href="/">seraph</Link>
       </Heading>
 
-      <Box marginLeft="auto">
-        <ThemeToggle />
-      </Box>
+      <Flex marginLeft="auto" alignContent="center">
+        <Box mr={3} mt={2}>
+          <DotMenu />
+        </Box>
+        <Box mt={1}>
+          <ThemeToggle />
+        </Box>
+      </Flex>
     </Flex>
   );
 };
