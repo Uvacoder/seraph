@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/react";
 
+import AboutText from "lib/components/samples/AboutText";
 import CTASection from "lib/components/samples/CTASection";
-import SomeImage from "lib/components/samples/SomeImage";
-import SomeText from "lib/components/samples/SomeText";
+import SomeImage from "lib/components/samples/Illustration";
 
 const Home = () => {
   return (
@@ -17,7 +17,7 @@ const Home = () => {
       <SomeImage />
 
       <Box>
-        <SomeText />
+        <AboutText />
         <CTASection />
       </Box>
     </Box>

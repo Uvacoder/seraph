@@ -1,24 +1,24 @@
 /** @type {import('next-seo').DefaultSeoProps} */
 const defaultSEOConfig = {
   title: "seraph",
-  titleTemplate: "%s | seraph",
+  titleTemplate: "%s | Code snippets sharing platform",
   defaultTitle: "seraph",
-  description: "Next.js + chakra-ui + TypeScript template",
-  canonical: "https://seraph.sznm.dev",
+  description: "Code snippets sharing platform",
+  canonical: "https://seraph.vercel.app",
   openGraph: {
-    url: "https://seraph.sznm.dev",
+    url: "https://seraph.vercel.app",
     title: "seraph",
-    description: "Next.js + chakra-ui + TypeScript template",
+    description: "Seraph - A code snippets sharing platform",
     images: [
       {
-        url: "https://og-image.sznm.dev/**seraph**.sznm.dev.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fsznm.dev%2Favataaars.svg&widths=250",
-        alt: "seraph.sznm.dev og-image",
+        url: "https://og-image.sznm.dev/**Seraph**🔥.png?theme=dark&md=1&fontSize=100px&",
+        alt: "seraph.vercel.app og-image",
       },
     ],
     site_name: "seraph",
   },
   twitter: {
-    handle: "@sozonome",
+    handle: "@hunchodotdev",
     cardType: "summary_large_image",
   },
 };

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
 import { Box, Button, Input, useColorMode } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import {
   ChangeEvent,
   memo,
@@ -43,6 +44,7 @@ const DownloadButton = ({ rawLink }: { rawLink?: string }) => {
 
 const Preview = ({ doc, remove }: PreviewProps) => {
   const { colorMode } = useColorMode();
+  const router = useRouter();
 
   return (
     <Box>
@@ -59,11 +61,14 @@ const Preview = ({ doc, remove }: PreviewProps) => {
           defaultValue={doc.fileName}
           isReadOnly
         />
-        <Box onClick={() => remove(doc)}>
-          <Button borderRadius={5} ml={2}>
-            <AiOutlineDelete />
-          </Button>
-        </Box>
+
+        {router.pathname.includes("/create-snippet") && (
+          <Box onClick={() => remove(doc)}>
+            <Button borderRadius={5} ml={2}>
+              <AiOutlineDelete />
+            </Button>
+          </Box>
+        )}
       </Box>
       <Box mt={3} transition="0.5s ease-out" backgroundColor="inherit">
         <SyntaxHighlighter

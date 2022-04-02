@@ -30,6 +30,7 @@
     "next-pwa": "^5.4.5",
     "next-seo": "^5.1.0",
     "next-transpile-modules": "^9.0.0",
+    "nprogress": "^0.2.0",
     "prisma": "^3.10.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^16.2.1",
+    "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.39",
     "@types/react-syntax-highlighter": "^13.5.2",
     "commitlint": "^16.2.1",

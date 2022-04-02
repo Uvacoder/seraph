@@ -14,9 +14,11 @@ import {
   Radio,
   Text,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import type React from "react";
 import { useMemo, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { BsArrowLeft } from "react-icons/bs";
 import { HiDotsVertical } from "react-icons/hi";
 
 import Preview from "../preview/Preview";
@@ -219,6 +221,16 @@ export default function UploadBox({
 
   return (
     <>
+      <Box>
+        <Link href="/snippets" passHref>
+          <Box borderRadius="full" width="20%" mb={7}>
+            <Button>
+              <BsArrowLeft />
+            </Button>
+          </Box>
+        </Link>
+      </Box>
+
       <div className="container">
         <div {...getRootProps({ style })}>
           <input {...getInputProps()} />
@@ -244,61 +256,57 @@ export default function UploadBox({
               alignContent="center"
               mt={10}
             >
-              {docs?.length !== 0 && (
-                <>
-                  <Button
-                    p={2}
-                    borderRadius={5}
-                    w={{ base: "100%", sm: "40%" }}
-                    type="submit"
-                    bg={colorMode === "light" ? "blue.500" : "blue.600"}
-                    color="white"
-                    _hover={{
-                      bg: colorMode === "light" ? "blue.600" : "blue.700",
-                    }}
-                    _active={{
-                      bg: colorMode === "light" ? "blue.700" : "blue.800",
-                    }}
-                    aria-label="Save snippet"
-                    isLoading={submitting}
+              <Button
+                p={2}
+                borderRadius={5}
+                w={{ base: "100%", sm: "40%" }}
+                type="submit"
+                bg={colorMode === "light" ? "blue.500" : "blue.600"}
+                color="white"
+                _hover={{
+                  bg: colorMode === "light" ? "blue.600" : "blue.700",
+                }}
+                _active={{
+                  bg: colorMode === "light" ? "blue.700" : "blue.800",
+                }}
+                aria-label="Save snippet"
+                isLoading={submitting}
+              >
+                Save
+              </Button>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  borderRadius={5}
+                  ml={2}
+                  bg={colorMode === "light" ? "blue.500" : "blue.600"}
+                  color="white"
+                  _hover={{
+                    bg: colorMode === "light" ? "blue.600" : "blue.700",
+                  }}
+                  _active={{
+                    bg: colorMode === "light" ? "blue.700" : "blue.800",
+                  }}
+                  aria-label="Save snippet"
+                  disabled={submitting}
+                >
+                  <HiDotsVertical />
+                </MenuButton>
+                <MenuList>
+                  <RadioGroup
+                    defaultValue="PUBLIC"
+                    onChange={setRadioValue}
+                    value={radioValue}
                   >
-                    Save
-                  </Button>
-                  <Menu>
-                    <MenuButton
-                      as={Button}
-                      borderRadius={5}
-                      ml={2}
-                      bg={colorMode === "light" ? "blue.500" : "blue.600"}
-                      color="white"
-                      _hover={{
-                        bg: colorMode === "light" ? "blue.600" : "blue.700",
-                      }}
-                      _active={{
-                        bg: colorMode === "light" ? "blue.700" : "blue.800",
-                      }}
-                      aria-label="Save snippet"
-                      disabled={submitting}
-                    >
-                      <HiDotsVertical />
-                    </MenuButton>
-                    <MenuList>
-                      <RadioGroup
-                        defaultValue="PUBLIC"
-                        onChange={setRadioValue}
-                        value={radioValue}
-                      >
-                        <MenuItem>
-                          <Radio value="PUBLIC">PUBLIC</Radio>
-                        </MenuItem>
-                        <MenuItem>
-                          <Radio value="PRIVATE">PRIVATE</Radio>
-                        </MenuItem>
-                      </RadioGroup>
-                    </MenuList>
-                  </Menu>
-                </>
-              )}
+                    <MenuItem>
+                      <Radio value="PUBLIC">PUBLIC</Radio>
+                    </MenuItem>
+                    <MenuItem>
+                      <Radio value="PRIVATE">PRIVATE</Radio>
+                    </MenuItem>
+                  </RadioGroup>
+                </MenuList>
+              </Menu>
             </Box>
           </Box>
         </form>

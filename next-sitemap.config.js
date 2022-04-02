@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const NextSitemapConfig = {
-  siteUrl: "https://seraph.sznm.dev",
+  siteUrl: "https://seraph.vercel.app",
   generateRobotsTxt: true,
 };
 

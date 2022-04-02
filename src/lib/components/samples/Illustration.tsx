@@ -5,7 +5,7 @@ import MotionBox from "lib/components/motion/Box";
 
 import HelperImage from "./HelperImage";
 
-const SomeImage = () => {
+const Illustration = () => {
   const { colorMode } = useColorMode();
 
   return (
@@ -44,4 +44,4 @@ const SomeImage = () => {
   );
 };
 
-export default SomeImage;
+export default Illustration;

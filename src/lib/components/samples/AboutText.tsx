@@ -6,7 +6,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 
-const SomeText = () => {
+const AboutText = () => {
   const { colorMode } = useColorMode();
   const textSize = useBreakpointValue({
     base: "xs",
@@ -33,4 +33,4 @@ const SomeText = () => {
   );
 };
 
-export default SomeText;
+export default AboutText;
