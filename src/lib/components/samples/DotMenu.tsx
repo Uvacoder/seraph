@@ -44,7 +44,7 @@ export default function DotMenu() {
           >
             <HiDotsVertical />
           </MenuButton>
-          <MenuList alignItems="center">
+          <MenuList alignItems="center" zIndex={34}>
             <br />
             <Center>
               <ChakraAvatar size="2xl" src={session.user.image as string} />
