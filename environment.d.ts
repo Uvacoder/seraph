@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { PrismaClient } from "@prisma/client";
+
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -11,6 +14,7 @@ declare global {
       NODE_ENV: "development" | "production";
       PORT?: string;
       PWD: string;
+      prisma: PrismaClient;
     }
   }
 }

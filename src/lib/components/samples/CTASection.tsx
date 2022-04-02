@@ -59,7 +59,7 @@ const CTASection = () => {
         {/* <Link href={repoLink} isExternal rel="noopener noreferrer">
           <Image
             align="center"
-            src="https://img.shields.io/github/stars/sozonome/nextarter-chakra?style=social"
+            src="https://img.shields.io/github/stars/sozonome/seraph?style=social"
             alt="github stars"
           />
         </Link> */}

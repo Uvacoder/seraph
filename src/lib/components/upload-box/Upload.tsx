@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 import {
@@ -6,19 +7,16 @@ import {
   MenuButton,
   Button,
   MenuList,
-  MenuDivider,
   MenuItem,
   useColorMode,
   useToast,
-  useDisclosure,
   RadioGroup,
   Radio,
   Text,
 } from "@chakra-ui/react";
+import type React from "react";
 import { useMemo, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import type { SubmitHandler } from "react-hook-form";
-import { useForm } from "react-hook-form";
 import { HiDotsVertical } from "react-icons/hi";
 
 import Preview from "../preview/Preview";
@@ -29,16 +27,6 @@ import {
 } from "lib/helpers";
 import type { Document } from "lib/types/Document";
 
-type SubmitProps = {
-  files: Document[];
-  visibility: string;
-  title: string;
-};
-
-type UploadProps = {
-  snippetName: string;
-};
-
 const baseStyleLight = {
   flex: 1,
   display: "flex",
@@ -47,7 +35,7 @@ const baseStyleLight = {
   padding: "20px",
   borderWidth: 2,
   borderRadius: 2,
-  borderColor: "#eeeeee",
+  borderColor: "rgba(255,255,255,0.04)",
   borderStyle: "dashed",
   backgroundColor: "#edf2f7",
   color: "#bdbdbd",
@@ -83,23 +71,78 @@ const rejectStyle = {
   borderColor: "#ff1744",
 };
 
-export default function UploadBox({ snippetName }: UploadProps) {
+export default function UploadBox({
+  snippetName,
+  setSnippetName,
+}: {
+  snippetName: string;
+  setSnippetName: (snippetName: string) => void;
+}) {
   const [radioValue, setRadioValue] = useState("PUBLIC");
   const [docs, setDocs] = useState<Document[] | null>([]);
+  const [submitting, setSubmitting] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<SubmitProps>();
+  const toast = useToast();
 
-  const onSubmit: SubmitHandler<SubmitProps> = ({ files, title, visibility }) =>
-    console.log({
-      files: docs,
-      title: snippetName,
-      visibility: radioValue,
-    });
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      if (!snippetName) {
+        toast({
+          title: "Error",
+          description: "You must name the snippet",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-end",
+        });
+        setSubmitting(false);
+      } else {
+        setSubmitting(true);
+        await fetch("/api/snippets/create", {
+          method: "POST",
+          body: JSON.stringify({
+            files: docs,
+            title: snippetName,
+            visibility: radioValue,
+          }),
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              toast({
+                title: "Success",
+                description: "Snippet created",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+                position: "top-end",
+              });
+              setSubmitting(false);
+              setDocs([]);
+              // eslint-disable-next-line no-param-reassign
+              setSnippetName("");
+            } else {
+              toast({
+                title: "Error",
+                description: "Something went wrong",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+                position: "top-end",
+              });
+              setSubmitting(false);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        setSubmitting(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleRemove = (file: Document): void => {
     const newDocs = docs?.filter((doc) => doc.fileName !== file.fileName);
@@ -130,7 +173,6 @@ export default function UploadBox({ snippetName }: UploadProps) {
   }, []);
 
   const validator = (file: File) => {
-    // TODO: make this configurable
     const maxFileSize = 2000000;
 
     if (file.size > maxFileSize) {
@@ -185,7 +227,7 @@ export default function UploadBox({ snippetName }: UploadProps) {
       </div>
 
       {docs?.length !== 0 && (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <Box mt={7}>
             <Text fontSize="xs" mb={2}>
               <sup>*</sup>Syntax highlighting is not supported for some file
@@ -218,14 +260,10 @@ export default function UploadBox({ snippetName }: UploadProps) {
                       bg: colorMode === "light" ? "blue.700" : "blue.800",
                     }}
                     aria-label="Save snippet"
+                    isLoading={submitting}
                   >
                     Save
                   </Button>
-                  {/* <Button
-                    
-                  >
-                    
-                  </Button> */}
                   <Menu>
                     <MenuButton
                       as={Button}
@@ -240,6 +278,7 @@ export default function UploadBox({ snippetName }: UploadProps) {
                         bg: colorMode === "light" ? "blue.700" : "blue.800",
                       }}
                       aria-label="Save snippet"
+                      disabled={submitting}
                     >
                       <HiDotsVertical />
                     </MenuButton>

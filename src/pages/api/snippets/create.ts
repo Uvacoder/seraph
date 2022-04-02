@@ -1,8 +1,8 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
-import type { Document } from "../../../lib/types/Document";
 import { prisma } from "lib/prisma/prisma";
 
 export default async function handler(
@@ -17,31 +17,23 @@ export default async function handler(
   } else if (!session) {
     res.status(401).json({ success: false, message: "Not authenticated" });
   } else {
-    const {
-      body: { title, files, visibility },
-    } = req;
-    const user = await prisma.user.findUnique({
-      where: {
-        // Type-casted to string because email is not required in the database
-        email: session?.user?.email as string,
-      },
-    });
+    const parsedData = JSON.parse(req.body);
+    const { title, files, visibility } = parsedData;
+
     await prisma.snippet
       .create({
-        // When you do not add the foreign key, in this case "authorId",
-        // TypeScript will scream at you with errors.
+        // Due to the way Prisma works, you need to connect the snippet with the respective author
+        // Or else TypeScript will scream at you with errors.
         data: {
           title,
           visibility,
-          authorId: user?.id as string,
+          author: {
+            connect: {
+              email: session?.user?.email as string,
+            },
+          },
           files: {
-            create: [
-              files.map((file: Document) => ({
-                fileName: file.fileName,
-                content: file.content,
-                extension: file.extension,
-              })),
-            ],
+            create: [...files],
           },
         },
       })
