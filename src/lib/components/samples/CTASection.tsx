@@ -19,7 +19,7 @@ const CTASection = () => {
         {status === "unauthenticated" ? (
           <>
             <Button
-              onClick={() => signIn("google", { callbackUrl: "/snippets" })}
+              onClick={() => signIn("google")}
               leftIcon={<FcGoogle />}
               size="sm"
               px={3}
@@ -27,7 +27,7 @@ const CTASection = () => {
               Continue with Google
             </Button>
             <Button
-              onClick={() => signIn("github", { callbackUrl: "/snippets" })}
+              onClick={() => signIn("github")}
               leftIcon={<AiFillGithub />}
               size="sm"
               px={3}
