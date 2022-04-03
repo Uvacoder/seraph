@@ -6,7 +6,7 @@ const Footer = () => {
       <Text>
         {new Date().getFullYear()} -{" "}
         <Link
-          href="https://huncho-dev.vercel.app"
+          href="https://seraph-app.vercel.app/"
           isExternal
           rel="noopener noreferrer"
         >
