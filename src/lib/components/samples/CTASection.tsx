@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { AiFillGithub } from "react-icons/ai";
+import { BiLogInCircle } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 
 const repoLink = "https://github.com/lucky-chap/seraph";
 
 const CTASection = () => {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   return (
     <Box textAlign={{ base: "center", md: "left" }} marginTop={8}>
       <Flex
@@ -16,24 +18,29 @@ const CTASection = () => {
         gridGap={2}
         flexDirection={{ base: "column", sm: "row" }}
       >
-        {status === "unauthenticated" ? (
+        {!session?.user ? (
           <>
-            <Button
+            {/* <Button
               onClick={() => signIn("google")}
               leftIcon={<FcGoogle />}
               size="sm"
               px={3}
             >
               Continue with Google
-            </Button>
-            <Button
-              onClick={() => signIn("github")}
-              leftIcon={<AiFillGithub />}
-              size="sm"
-              px={3}
-            >
-              Login with GitHub
-            </Button>
+            </Button> */}
+            <Link href="/api/auth/signin" passHref>
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  signIn();
+                }}
+                leftIcon={<BiLogInCircle />}
+                size="sm"
+                px={4}
+              >
+                LOGIN NOW
+              </Button>
+            </Link>
           </>
         ) : (
           <>
