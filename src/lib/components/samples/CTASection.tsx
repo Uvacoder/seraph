@@ -3,13 +3,12 @@ import { Box, Button, Flex } from "@chakra-ui/react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { AiFillGithub } from "react-icons/ai";
-import { BiLogInCircle } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 
 const repoLink = "https://github.com/lucky-chap/seraph";
 
 const CTASection = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   return (
     <Box textAlign={{ base: "center", md: "left" }} marginTop={8}>
       <Flex
@@ -20,27 +19,22 @@ const CTASection = () => {
       >
         {!session?.user ? (
           <>
-            {/* <Button
+            <Button
               onClick={() => signIn("google")}
               leftIcon={<FcGoogle />}
               size="sm"
               px={3}
             >
               Continue with Google
-            </Button> */}
-            <Link href="/api/auth/signin" passHref>
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  signIn();
-                }}
-                leftIcon={<BiLogInCircle />}
-                size="sm"
-                px={4}
-              >
-                LOGIN NOW
-              </Button>
-            </Link>
+            </Button>
+            <Button
+              onClick={() => signIn("google")}
+              leftIcon={<AiFillGithub />}
+              size="sm"
+              px={3}
+            >
+              Sign in with GitHub
+            </Button>
           </>
         ) : (
           <>
