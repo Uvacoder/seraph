@@ -28,7 +28,7 @@ const CTASection = () => {
               Continue with Google
             </Button>
             <Button
-              onClick={() => signIn("google", { callbackUrl: "/snippets" })}
+              onClick={() => signIn("github", { callbackUrl: "/snippets" })}
               leftIcon={<AiFillGithub />}
               size="sm"
               px={3}
