@@ -20,7 +20,7 @@ const CTASection = () => {
         {!session?.user ? (
           <>
             <Button
-              onClick={() => signIn("google")}
+              onClick={() => signIn("google", { callbackUrl: "/snippets" })}
               leftIcon={<FcGoogle />}
               size="sm"
               px={3}
@@ -28,7 +28,7 @@ const CTASection = () => {
               Continue with Google
             </Button>
             <Button
-              onClick={() => signIn("google")}
+              onClick={() => signIn("google", { callbackUrl: "/snippets" })}
               leftIcon={<AiFillGithub />}
               size="sm"
               px={3}
