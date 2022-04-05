@@ -27,7 +27,7 @@ import {
   allowedFileNames,
   allowedFileTypes,
 } from "lib/helpers";
-import type { Document } from "lib/types/Document";
+import type { Document } from "lib/types";
 
 const baseStyleLight = {
   flex: 1,

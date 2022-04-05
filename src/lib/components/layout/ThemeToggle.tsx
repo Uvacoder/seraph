@@ -10,6 +10,16 @@ const ThemeToggle = () => {
       icon={colorMode === "light" ? <RiMoonFill /> : <RiSunLine />}
       onClick={toggleColorMode}
       size="lg"
+      backgroundColor="transparent"
+      _active={{
+        backgroundColor: "transparent",
+      }}
+      _hover={{
+        backgroundColor: "transparent",
+      }}
+      _focus={{
+        border: "none",
+      }}
     />
   );
 };

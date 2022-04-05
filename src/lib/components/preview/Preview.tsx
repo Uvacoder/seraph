@@ -1,22 +1,27 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
-import { Box, Button, Input, useColorMode } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import {
-  ChangeEvent,
-  memo,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+  Box,
+  Button,
+  Input,
+  useColorMode,
+  Tabs,
+  Tab,
+  TabList,
+  TabPanels,
+  TabPanel,
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { memo, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import light from "react-syntax-highlighter/dist/esm/styles/prism/material-light";
 import dark from "react-syntax-highlighter/dist/esm/styles/prism/nord";
 
-import type { Document } from "lib/types/Document";
+import type { Document } from "lib/types";
+
+import styles from "./preview.module.css";
 
 export type PreviewProps = {
   // editable?: boolean;
@@ -32,18 +37,19 @@ export type PreviewProps = {
   doc: Document;
 };
 
-const DownloadButton = ({ rawLink }: { rawLink?: string }) => {
-  return (
-    <a href={`${rawLink}?download=true`}>
-      <Button size="xs" aria-label="Download">
-        Download
-      </Button>
-    </a>
-  );
-};
+// const DownloadButton = ({ rawLink }: { rawLink?: string }) => {
+//   return (
+//     <a href={`${rawLink}?download=true`}>
+//       <Button size="xs" aria-label="Download">
+//         Download
+//       </Button>
+//     </a>
+//   );
+// };
 
 const Preview = ({ doc, remove }: PreviewProps) => {
   const { colorMode } = useColorMode();
+  const [content, setContent] = useState(doc.content);
   const router = useRouter();
 
   return (
@@ -70,16 +76,60 @@ const Preview = ({ doc, remove }: PreviewProps) => {
           </Box>
         )}
       </Box>
-      <Box mt={3} transition="0.5s ease-out" backgroundColor="inherit">
-        <SyntaxHighlighter
-          showLineNumbers
-          customStyle={{}}
-          language={doc.extension}
-          style={colorMode === "light" ? light : dark}
-        >
-          {doc.content}
-        </SyntaxHighlighter>
-      </Box>
+      {router.pathname.includes("/create-snippet") ? (
+        <Box mt={3} transition="0.5s ease-out" backgroundColor="inherit">
+          <Tabs px={0} defaultIndex={1}>
+            <TabList>
+              <Tab
+                _focus={{
+                  boxShadow: "none",
+                }}
+              >
+                Raw
+              </Tab>
+              <Tab
+                _focus={{
+                  boxShadow: "none",
+                }}
+              >
+                Preview
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <textarea
+                  className={styles.textarea}
+                  value={content}
+                  onChange={(e) => {
+                    setContent(e.target.value);
+                    // eslint-disable-next-line no-param-reassign
+                    doc.content = e.target.value;
+                  }}
+                />
+              </TabPanel>
+              <TabPanel>
+                <SyntaxHighlighter
+                  showLineNumbers
+                  language={doc.extension}
+                  style={colorMode === "light" ? light : dark}
+                >
+                  {content}
+                </SyntaxHighlighter>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Box>
+      ) : (
+        <Box mt={3} transition="0.5s ease-out" backgroundColor="inherit">
+          <SyntaxHighlighter
+            showLineNumbers
+            language={doc.extension}
+            style={colorMode === "light" ? light : dark}
+          >
+            {doc.content}
+          </SyntaxHighlighter>
+        </Box>
+      )}
     </Box>
   );
 };

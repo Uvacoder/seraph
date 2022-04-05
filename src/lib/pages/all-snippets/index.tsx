@@ -16,7 +16,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { AiOutlineDelete } from "react-icons/ai";
 
-import type { SnippetProps } from "pages/snippets";
+import type { SnippetProps } from "lib/types";
 
 const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
   const { data: session, status } = useSession();
@@ -108,7 +108,7 @@ const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
               transition="all 0.2s"
               _hover={{
                 transform: "scale(1.035)",
-                boxShadow: "0px 0px 30px rgba(0, 0, 0, 0.1)",
+                boxShadow: "0px 0px 30px rgba(0, 0, 0, 0.06)",
               }}
             >
               <Link href={`/snippets/${snippet.id}`} passHref>
@@ -135,7 +135,12 @@ const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
           ))
         ) : (
           <Box display="grid" placeContent="center" height="55vh">
-            <Text>Oops! You don&apos;t have any snippets yet. 🥲</Text>
+            <Text mb={3}>Oops! You don&apos;t have any snippets yet. 🥲</Text>
+            <Link href="/create-snippet" passHref>
+              <Button borderRadius={5} width="40%">
+                Add
+              </Button>
+            </Link>
           </Box>
         )}
       </Box>
