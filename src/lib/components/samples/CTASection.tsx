@@ -8,7 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 const repoLink = "https://github.com/lucky-chap/seraph";
 
 const CTASection = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   return (
     <Box textAlign={{ base: "center", md: "left" }} marginTop={8}>
       <Flex
@@ -22,6 +22,7 @@ const CTASection = () => {
             <Button
               onClick={() => signIn("google", { callbackUrl: "/snippets" })}
               leftIcon={<FcGoogle />}
+              isLoading={status === "loading"}
               size="sm"
               px={3}
             >
@@ -30,6 +31,7 @@ const CTASection = () => {
             <Button
               onClick={() => signIn("github", { callbackUrl: "/snippets" })}
               leftIcon={<AiFillGithub />}
+              isLoading={status === "loading"}
               size="sm"
               px={3}
             >

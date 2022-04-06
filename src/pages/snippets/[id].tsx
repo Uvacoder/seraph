@@ -40,7 +40,7 @@ export default function Index({ snippet }: { snippet: SnippetProps }) {
             <Heading as="h1" size="md" w="100%" mt={4}>
               {snippet.title}
             </Heading>
-            <ShareButton />
+            {snippet.visibility === "PUBLIC" && <ShareButton />}
           </Box>
           <Box
             display="flex"
@@ -74,7 +74,7 @@ export default function Index({ snippet }: { snippet: SnippetProps }) {
         <Box display="grid" placeContent="center" height="55vh">
           <Text mb={3}>Sorry, this snippet is PRIVATE. Create yours here:</Text>
           <Link href="/create-snippet" passHref>
-            <Button borderRadius={5} width="40%">
+            <Button borderRadius={5} width="55%">
               Create Snippet
             </Button>
           </Link>

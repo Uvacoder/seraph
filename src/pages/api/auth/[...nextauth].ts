@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import NextAuth from "next-auth";
@@ -18,4 +19,14 @@ export default NextAuth({
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
   ],
+  callbacks: {
+    session: async ({ session, user }) => {
+      // Over here, I had to add the `user` property to the session object
+      // I added a new field to the session object in environment.d.ts
+      if (session?.user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
+  },
 });

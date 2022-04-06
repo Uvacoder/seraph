@@ -137,7 +137,7 @@ const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
           <Box display="grid" placeContent="center" height="55vh">
             <Text mb={3}>Oops! You don&apos;t have any snippets yet. 🥲</Text>
             <Link href="/create-snippet" passHref>
-              <Button borderRadius={5} width="40%">
+              <Button borderRadius={5} width="55%">
                 Add
               </Button>
             </Link>

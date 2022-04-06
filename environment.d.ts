@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { PrismaClient } from "@prisma/client";
+import type { DefaultUser } from "next-auth";
 
 declare global {
   namespace NodeJS {
@@ -15,5 +16,19 @@ declare global {
       PWD: string;
       prisma: PrismaClient;
     }
+  }
+}
+
+declare module "next-auth" {
+  interface Session {
+    user?: DefaultUser & {
+      id: string;
+    };
+  }
+}
+
+declare module "next-auth/jwt/types" {
+  interface JWT {
+    uid: string;
   }
 }
