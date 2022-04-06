@@ -29,7 +29,7 @@ export default async function handler(
           visibility,
           author: {
             connect: {
-              email: session?.user?.email as string,
+              id: session?.user?.id as string,
             },
           },
           files: {

@@ -57,8 +57,8 @@ model Snippet {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   title         String      @db.VarChar(255)
-  author        User        @relation(fields: [authorId], references: [id])
-  authorId      String
+  author        User?       @relation(fields: [authorId], references: [id])
+  authorId      String?
   files         File[]
   visibility    String
 }

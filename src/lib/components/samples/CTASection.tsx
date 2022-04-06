@@ -23,6 +23,7 @@ const CTASection = () => {
               onClick={() => signIn("google", { callbackUrl: "/snippets" })}
               leftIcon={<FcGoogle />}
               isLoading={status === "loading"}
+              disabled={status === "loading"}
               size="sm"
               px={3}
             >
@@ -32,6 +33,7 @@ const CTASection = () => {
               onClick={() => signIn("github", { callbackUrl: "/snippets" })}
               leftIcon={<AiFillGithub />}
               isLoading={status === "loading"}
+              disabled={status === "loading"}
               size="sm"
               px={3}
             >

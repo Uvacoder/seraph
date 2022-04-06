@@ -22,3 +22,17 @@ export type SnippetProps = {
   visibility: string;
   files: Document[];
 };
+
+export type PreviewProps = {
+  // editable?: boolean;
+  remove: (file: Document) => void;
+  // title?: string;
+  // content?: string | null;
+  // setTitle?: (title: string) => void;
+  // setContent?: (content: string) => void;
+  // initialTab?: "edit" | "preview";
+  // skeleton?: boolean;
+  // id?: string;
+  // language: string | undefined;
+  doc: Document;
+};

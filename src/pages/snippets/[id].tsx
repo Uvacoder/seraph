@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
-import { Box, Heading, Text, Badge, Button, HStack } from "@chakra-ui/react";
-import type { GetServerSideProps, GetStaticProps, GetStaticPaths } from "next";
-import { useSession } from "next-auth/react";
+import { Box, Heading, Badge, Button } from "@chakra-ui/react";
+import type { GetServerSideProps } from "next";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";
 
@@ -12,7 +11,6 @@ import { prisma } from "lib/prisma/prisma";
 import type { Document, SnippetProps } from "lib/types";
 
 export default function Index({ snippet }: { snippet: SnippetProps }) {
-  const { data: session } = useSession();
   // make this function optional in the future
   const handleRemove = (file: Document): void => {
     // const newDocs = snippet.files?.filter(
@@ -23,63 +21,49 @@ export default function Index({ snippet }: { snippet: SnippetProps }) {
 
   return (
     <Box minHeight="80vh" gap={8}>
-      {session?.user && session?.user.email === snippet.author.email ? (
-        <Box my={10} py={4} display="flex" flexDirection="column">
-          <Link href="/snippets" passHref>
-            <Box borderRadius="full" width="20%" mb={7}>
-              <Button>
-                <BsArrowLeft />
-              </Button>
-            </Box>
-          </Link>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Heading as="h1" size="md" w="100%" mt={4}>
-              {snippet.title}
-            </Heading>
-            {snippet.visibility === "PUBLIC" && <ShareButton />}
-          </Box>
-          <Box
-            display="flex"
-            flexDirection={{ base: "column", md: "row" }}
-            justifyContent={{ base: "space-between" }}
-            flexWrap="wrap"
-          >
-            <Box>
-              <Badge colorScheme="green" mt={6} py={1} px={2} borderRadius={5}>
-                {snippet.visibility}
-              </Badge>
-            </Box>
-            <Box>
-              <Badge colorScheme="green" mt={6} py={1} px={2} borderRadius={5}>
-                {new Date(snippet.createdAt).toLocaleDateString()}
-              </Badge>
-            </Box>
-            <Box>
-              <Badge colorScheme="green" mt={6} py={1} px={2} borderRadius={5}>
-                {snippet.files.length} Files
-              </Badge>
-            </Box>
-          </Box>
-          {snippet.files.map((file, index) => (
-            <Box key={Math.floor(Math.random() * 103975803405 + index)}>
-              <Preview doc={file} remove={handleRemove} />
-            </Box>
-          ))}
-        </Box>
-      ) : (
-        <Box display="grid" placeContent="center" height="55vh">
-          <Text mb={3}>Sorry, this snippet is PRIVATE. Create yours here:</Text>
-          <Link href="/create-snippet" passHref>
-            <Button borderRadius={5} width="55%">
-              Create Snippet
+      <Box my={10} py={4} display="flex" flexDirection="column">
+        <Link href="/snippets" passHref>
+          <Box borderRadius="full" width="20%" mb={7}>
+            <Button>
+              <BsArrowLeft />
             </Button>
-          </Link>
+          </Box>
+        </Link>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Heading as="h1" size="md" w="100%" mt={4}>
+            {snippet.title}
+          </Heading>
+          {snippet.visibility === "PUBLIC" && <ShareButton />}
         </Box>
-      )}
+        <Box
+          display="flex"
+          flexDirection={{ base: "column", md: "row" }}
+          justifyContent={{ base: "space-between" }}
+          flexWrap="wrap"
+        >
+          <Box>
+            <Badge colorScheme="green" mt={6} py={1} px={2} borderRadius={5}>
+              {snippet.visibility}
+            </Badge>
+          </Box>
+          <Box>
+            <Badge colorScheme="green" mt={6} py={1} px={2} borderRadius={5}>
+              {new Date(snippet.createdAt).toLocaleDateString()}
+            </Badge>
+          </Box>
+          <Box>
+            <Badge colorScheme="green" mt={6} py={1} px={2} borderRadius={5}>
+              {snippet.files.length}{" "}
+              {snippet.files.length === 1 ? "File" : "Files"}
+            </Badge>
+          </Box>
+        </Box>
+        {snippet.files.map((file, index) => (
+          <Box key={Math.floor(Math.random() * 103975803405 + index)}>
+            <Preview doc={file} remove={handleRemove} />
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 }

@@ -6,7 +6,10 @@
 
 ## About
 
-Seraph is a platform built for sharing code snippets. Sharing feature is currently under development though 🥲. With Seraph, you can send code snippets over social media, have private snippets and more. Give it a try, you wouldn't be disappointed 😍
+Seraph is a platform built for sharing code snippets. Users can share snippets via Telegram, WhatsApp, Twitter, Reddit and Facebook. You can also copy the URL and send to anyone too. Snippets can be private or public. Try Seraph now
+
+## Note 🚧
+Seraph is still under development and it is not production-ready yet. Your files or snippets may be deleted at some point due to breaking changes. Use at your own risk.
 
 ## Getting Started
 

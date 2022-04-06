@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-template-literals */
 import {
   Button,
   Center,
@@ -7,7 +8,7 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-// import { AiOutlineShareAlt } from "react-icons/ai";
+import { useRouter } from "next/router";
 import { BsShareFill } from "react-icons/bs";
 import {
   FaTelegramPlane,
@@ -25,6 +26,13 @@ import {
 } from "react-share";
 
 export default function ShareMenu() {
+  const router = useRouter();
+  // Did this because window object may be undefined
+  const url = `${
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:3000${router.asPath}`
+      : `https://seraph-app.vercel.app${router.asPath}`
+  }`;
   const title = "Check out this awesome snippet on seraph-app.vercel.dev !";
   return (
     <div>
@@ -50,7 +58,7 @@ export default function ShareMenu() {
           <br />
           <Center>
             <TwitterShareButton
-              url={window.location.href}
+              url={url}
               title={title}
               hashtags={["seraph_app", "vercel", "nextjs", "react"]}
               related={["hunchodotdev"]}
@@ -63,7 +71,7 @@ export default function ShareMenu() {
           </Center>
           <br />
           <Center>
-            <TelegramShareButton url={window.location.href} title={title}>
+            <TelegramShareButton url={url} title={title}>
               <HStack>
                 <Text>Telegram</Text>
                 <FaTelegramPlane />
@@ -72,7 +80,7 @@ export default function ShareMenu() {
           </Center>
           <br />
           <Center>
-            <RedditShareButton url={window.location.href} title={title}>
+            <RedditShareButton url={url} title={title}>
               <HStack>
                 <Text>Reddit</Text>
                 <FaReddit />
@@ -81,7 +89,7 @@ export default function ShareMenu() {
           </Center>
           <br />
           <Center>
-            <WhatsappShareButton url={window.location.href} title={title}>
+            <WhatsappShareButton url={url} title={title}>
               <HStack>
                 <Text>WhatsApp</Text>
                 <FaWhatsapp />
@@ -91,7 +99,7 @@ export default function ShareMenu() {
           <br />
           <Center>
             <FacebookShareButton
-              url={window.location.href}
+              url={url}
               quote={title}
               hashtag="#seraph-app.vercel.app"
             >

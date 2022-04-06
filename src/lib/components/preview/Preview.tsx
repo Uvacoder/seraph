@@ -19,23 +19,9 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import light from "react-syntax-highlighter/dist/esm/styles/prism/material-light";
 import dark from "react-syntax-highlighter/dist/esm/styles/prism/nord";
 
-import type { Document } from "lib/types";
+import type { PreviewProps } from "lib/types";
 
 import styles from "./preview.module.css";
-
-export type PreviewProps = {
-  // editable?: boolean;
-  remove: (file: Document) => void;
-  // title?: string;
-  // content?: string | null;
-  // setTitle?: (title: string) => void;
-  // setContent?: (content: string) => void;
-  // initialTab?: "edit" | "preview";
-  // skeleton?: boolean;
-  // id?: string;
-  // language: string | undefined;
-  doc: Document;
-};
 
 // const DownloadButton = ({ rawLink }: { rawLink?: string }) => {
 //   return (
