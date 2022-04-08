@@ -1,3 +1,3 @@
-import CreateSnippet from "lib/pages/create-snippet";
+import CreateSnippet from "lib/views/create-snippet";
 
 export default CreateSnippet;

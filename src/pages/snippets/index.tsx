@@ -4,9 +4,9 @@ import type { GetServerSideProps } from "next";
 import type { GetSessionParams } from "next-auth/react";
 import { getSession } from "next-auth/react";
 
-import AllSnippets from "lib/pages/all-snippets";
 import { prisma } from "lib/prisma/prisma";
 import type { SnippetProps } from "lib/types";
+import AllSnippets from "lib/views/all-snippets";
 
 export default function Index({ snippets }: { snippets: SnippetProps[] }) {
   return <AllSnippets snippets={snippets} />;

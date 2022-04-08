@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-template-literals */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
@@ -12,31 +13,29 @@ import {
   TabPanels,
   TabPanel,
 } from "@chakra-ui/react";
+import { saveAs } from "file-saver";
 import { useRouter } from "next/router";
 import { memo, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
+import { FaFileDownload } from "react-icons/fa";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import light from "react-syntax-highlighter/dist/esm/styles/prism/material-light";
 import dark from "react-syntax-highlighter/dist/esm/styles/prism/nord";
 
-import type { PreviewProps } from "lib/types";
+import type { PreviewProps, Document } from "lib/types";
 
 import styles from "./preview.module.css";
-
-// const DownloadButton = ({ rawLink }: { rawLink?: string }) => {
-//   return (
-//     <a href={`${rawLink}?download=true`}>
-//       <Button size="xs" aria-label="Download">
-//         Download
-//       </Button>
-//     </a>
-//   );
-// };
 
 const Preview = ({ doc, remove }: PreviewProps) => {
   const { colorMode } = useColorMode();
   const [content, setContent] = useState(doc.content);
   const router = useRouter();
+
+  // Maybe alter this to use the same logic in Upload.tsx?(onDrop)
+  const handleSave = (file: Document) => {
+    const blob = new Blob([file.content], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, file.fileName);
+  };
 
   return (
     <Box>
@@ -46,13 +45,35 @@ const Preview = ({ doc, remove }: PreviewProps) => {
         alignContent="center"
         mt={12}
       >
-        <Input
-          w={{ base: "80%", sm: "60%", md: "40%" }}
-          variant="filled"
-          placeholder="File name"
-          defaultValue={doc.fileName}
-          isReadOnly
-        />
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignContent="center"
+          width="100%"
+          flexDirection={{ base: "column", sm: "row" }}
+        >
+          <Input
+            w={{ base: "60%", sm: "50%", md: "40%" }}
+            mr={4}
+            variant="filled"
+            placeholder="File name"
+            defaultValue={doc.fileName}
+            isReadOnly
+          />
+          {router.pathname.includes("/snippets/[id]") && (
+            <Button
+              w={{ base: "50%", sm: "40%", md: "20%" }}
+              mt={{ base: 3, sm: 0 }}
+              borderRadius={7}
+              backgroundColor="rgba(255, 255, 255, 0.04)"
+              fontWeight="normal"
+              leftIcon={<FaFileDownload />}
+              onClick={() => handleSave(doc)}
+            >
+              Download
+            </Button>
+          )}
+        </Box>
 
         {router.pathname.includes("/create-snippet") && (
           <Box onClick={() => remove(doc)}>
