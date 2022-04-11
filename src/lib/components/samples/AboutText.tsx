@@ -17,7 +17,11 @@ const AboutText = () => {
 
   return (
     <Grid gap={2}>
-      <Heading as="h2" fontSize={{ base: "lg", sm: "3xl" }}>
+      <Heading
+        as="h2"
+        fontSize={{ base: "lg", sm: "3xl" }}
+        className="welcome-text"
+      >
         Welcome to Seraph 👋
       </Heading>
 

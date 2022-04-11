@@ -35,8 +35,8 @@ const MyApp = ({
     };
   }, []);
   return (
-    <ChakraProvider theme={customTheme}>
-      <SessionProvider session={session}>
+    <SessionProvider session={session}>
+      <ChakraProvider theme={customTheme}>
         <Head>
           <meta
             name="viewport"
@@ -47,8 +47,8 @@ const MyApp = ({
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </SessionProvider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </SessionProvider>
   );
 };
 

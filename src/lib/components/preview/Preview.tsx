@@ -65,7 +65,9 @@ const Preview = ({ doc, remove }: PreviewProps) => {
               w={{ base: "50%", sm: "40%", md: "20%" }}
               mt={{ base: 3, sm: 0 }}
               borderRadius={7}
-              backgroundColor="rgba(255, 255, 255, 0.04)"
+              backgroundColor={
+                colorMode === "light" ? "gray.100" : "rgba(255, 255, 255, 0.04)"
+              }
               fontWeight="normal"
               leftIcon={<FaFileDownload />}
               onClick={() => handleSave(doc)}

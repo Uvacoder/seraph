@@ -28,7 +28,7 @@
     "**/*.tsx",
     "src",
     "commitlint.config.js"
-  ],
+, "__tests__/test-utils.tsx"  ],
   "exclude": [
     "node_modules"
   ]
