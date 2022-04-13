@@ -8,6 +8,7 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useColorMode,
   Avatar as ChakraAvatar,
   Box,
 } from "@chakra-ui/react";
@@ -22,6 +23,7 @@ import { BiBookContent } from "react-icons/bi";
 import { HiDotsVertical } from "react-icons/hi";
 
 export default function DotMenu() {
+  const { colorMode } = useColorMode();
   const { data: session } = useSession();
   return (
     <div>
@@ -48,6 +50,7 @@ export default function DotMenu() {
           _focus={{
             border: "none",
           }}
+          color={colorMode === "light" ? "gray.600" : "gray.200"}
         >
           <HiDotsVertical />
         </MenuButton>

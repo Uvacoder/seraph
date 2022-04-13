@@ -10,6 +10,8 @@ const ThemeToggle = () => {
       icon={colorMode === "light" ? <RiMoonFill /> : <RiSunLine />}
       onClick={toggleColorMode}
       size="lg"
+      variant="ghost"
+      color={colorMode === "light" ? "gray.600" : "gray.200"}
       backgroundColor="transparent"
       _active={{
         backgroundColor: "transparent",
