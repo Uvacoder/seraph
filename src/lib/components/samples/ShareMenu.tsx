@@ -7,6 +7,7 @@ import {
   MenuButton,
   MenuList,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { BsShareFill } from "react-icons/bs";
@@ -26,6 +27,7 @@ import {
 } from "react-share";
 
 export default function ShareMenu() {
+  const { colorMode } = useColorMode();
   const router = useRouter();
   // Did this because window object may be undefined
   const url = `${
@@ -54,7 +56,11 @@ export default function ShareMenu() {
         >
           <BsShareFill />
         </MenuButton>
-        <MenuList alignItems="center" zIndex={34}>
+        <MenuList
+          alignItems="center"
+          zIndex={34}
+          bg={colorMode === "light" ? "white" : "gray.800"}
+        >
           <br />
           <Center>
             <TwitterShareButton

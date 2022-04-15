@@ -2,6 +2,8 @@ import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 
+import SideBarWithHeader from "lib/components/dashboard";
+
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -14,8 +16,8 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <Box>
       {!router.pathname.includes("/dashboard") ? (
-        <Box margin="0 auto" maxWidth={1300} transition="0.5s ease-out">
-          <Box margin="8">
+        <Box margin="8" transition="0.5s ease-out">
+          <Box maxWidth={1300} mx="auto">
             <Header />
             <Box as="main" marginY={22}>
               {children}
@@ -24,9 +26,9 @@ const Layout = ({ children }: LayoutProps) => {
           </Box>
         </Box>
       ) : (
-        <Box maxWidth={4500}>
+        <Box maxWidth={4500} mx="auto">
           <Box margin="0">
-            <Box as="main">{children}</Box>
+            <SideBarWithHeader>{children}</SideBarWithHeader>
           </Box>
         </Box>
       )}

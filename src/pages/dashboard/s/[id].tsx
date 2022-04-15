@@ -20,9 +20,9 @@ export default function Index({ snippet }: { snippet: SnippetProps }) {
   };
 
   return (
-    <Box minHeight="80vh" gap={8}>
+    <Box minHeight="80vh" gap={8} mx="auto" maxW={850}>
       <Box my={10} py={4} display="flex" flexDirection="column">
-        <Link href="/snippets" passHref>
+        <Link href="/dashboard" passHref>
           <Box borderRadius="full" width="20%" mb={7}>
             <Button>
               <BsArrowLeft />

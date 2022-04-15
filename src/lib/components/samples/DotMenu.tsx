@@ -14,11 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import {
-  AiFillFileAdd,
-  AiOutlineInfoCircle,
-  AiFillGithub,
-} from "react-icons/ai";
+import { AiFillFileAdd, AiFillGithub } from "react-icons/ai";
 import { BiBookContent } from "react-icons/bi";
 import { HiDotsVertical } from "react-icons/hi";
 
@@ -67,7 +63,7 @@ export default function DotMenu() {
               </Center>
               <br />
               <MenuDivider />
-              <Link href="/snippets" passHref>
+              <Link href="/dashboard" passHref>
                 <Box display="flex" justifyContent="space-between">
                   <MenuItem>
                     <BiBookContent />
@@ -75,7 +71,7 @@ export default function DotMenu() {
                   </MenuItem>
                 </Box>
               </Link>
-              <Link href="/create-snippet" passHref>
+              <Link href="/dashboard/new" passHref>
                 <Box display="flex" justifyContent="space-between">
                   <MenuItem>
                     <AiFillFileAdd />

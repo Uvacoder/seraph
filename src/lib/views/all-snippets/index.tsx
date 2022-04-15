@@ -9,6 +9,7 @@ import {
   Button,
   useToast,
   useColorMode,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -16,6 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { AiOutlineDelete } from "react-icons/ai";
 
+import SnippetCard from "lib/components/snippet-card";
 import type { SnippetProps } from "lib/types";
 
 const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
@@ -39,7 +41,7 @@ const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
               isClosable: true,
               position: "top-end",
             });
-            router.push("/snippets");
+            router.push("/dashboard");
           } else {
             toast({
               title: "Error",
@@ -69,81 +71,68 @@ const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
     );
   }
   return (
-    <Box minHeight="80vh" gap={8} my={8}>
+    <Box p="2" minH="80vh">
       <Box
-        display={{ base: "flex" }}
-        flexDirection={{ base: "row" }}
-        justifyContent={{ base: "space-between" }}
-        alignItems="center"
+        display="flex"
+        justifyContent="space-between"
         alignContent="center"
-        w="full"
+        flexWrap="wrap"
+        mt={10}
+        mx={4}
       >
+        <Text
+          color={colorMode === "light" ? "gray.800" : "white"}
+          fontWeight="semibold"
+          letterSpacing="wide"
+          fontSize="lg"
+          textTransform="uppercase"
+          ml="2"
+        >
+          Your snippets
+        </Text>
         <Box>
-          <Heading as="h1" size="md" w="100%" mt={4}>
-            Your snippets
-          </Heading>
-        </Box>
-
-        <Box>
-          <Badge colorScheme="green" mt={6} py={1} px={2} borderRadius={5}>
-            {snippets.length} in total
+          <Badge rounded="full" px="2" alignContent="center" colorScheme="teal">
+            {snippets?.length} in total
           </Badge>
         </Box>
       </Box>
-
-      <Box w="full" mt={8} display={{ base: "flex" }} flexDirection="column">
-        {snippets.length !== 0 ? (
-          snippets.map((snippet: SnippetProps) => (
-            <Box
-              key={snippet.id}
-              display={{ base: "flex" }}
-              flexDirection="row"
-              justifyContent="space-around"
-              alignItems="center"
-              w="full"
-              borderRadius={10}
-              p={4}
-              mt={4}
-              bg={colorMode === "light" ? "gray.100" : "gray.900"}
-              transition="all 0.2s"
-              _hover={{
-                transform: "scale(1.035)",
-                boxShadow: "0px 0px 30px rgba(0, 0, 0, 0.06)",
-              }}
-            >
-              <Link href={`/snippets/${snippet.id}`} passHref>
-                <Box width="70%" cursor="pointer">
-                  <Heading size="sm">{snippet.title}</Heading>
-                </Box>
-              </Link>
-
-              <Box
-                zIndex={10}
-                alignSelf="end"
-                alignItems="flex-end"
-                cursor="pointer"
-              >
-                <Button
-                  borderRadius={5}
-                  bg={colorMode === "light" ? "gray.300" : "gray.800"}
-                  onClick={() => removeSnippet(snippet.id)}
-                >
-                  <AiOutlineDelete />
-                </Button>
-              </Box>
+      <SimpleGrid
+        columns={{ base: 1, sm: 2, md: 3 }}
+        spacingX={4}
+        // mx="auto"
+        maxW={{ base: "full", sm: "90%" }}
+        display="flex"
+        flexDirection={{ base: "column", md: "row" }}
+        justifyContent="flex-start"
+        alignContent="center"
+        flexWrap="wrap"
+        px={{ base: 1, sm: 6 }}
+      >
+        {snippets?.length !== 0 ? (
+          snippets?.map((snippet: SnippetProps) => (
+            <Box key={snippet.id}>
+              <SnippetCard
+                remove={() => removeSnippet(snippet.id)}
+                snippet={snippet}
+              />
             </Box>
           ))
         ) : (
-          <Box display="grid" placeContent="center" height="55vh">
+          <Box
+            display="grid"
+            placeContent="center"
+            alignContent="center"
+            height="55vh"
+          >
             <Text mb={3}>Oops! You don&apos;t have any snippets yet. 🥲</Text>
-            <Link href="/create-snippet" passHref>
+            <Link href="/dashboard/new" passHref>
               <Button borderRadius={5} width="55%">
                 Add
               </Button>
             </Link>
           </Box>
         )}
-      </Box>
+      </SimpleGrid>
     </Box>
   );
 };

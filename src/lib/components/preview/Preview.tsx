@@ -60,7 +60,7 @@ const Preview = ({ doc, remove }: PreviewProps) => {
             defaultValue={doc.fileName}
             isReadOnly
           />
-          {router.pathname.includes("/snippets/[id]") && (
+          {router.pathname.includes("/dashboard/s/[id]") && (
             <Button
               w={{ base: "50%", sm: "40%", md: "20%" }}
               mt={{ base: 3, sm: 0 }}
@@ -77,7 +77,7 @@ const Preview = ({ doc, remove }: PreviewProps) => {
           )}
         </Box>
 
-        {router.pathname.includes("/create-snippet") && (
+        {router.pathname.includes("/dashboard/new") && (
           <Box onClick={() => remove(doc)}>
             <Button borderRadius={5} ml={2}>
               <AiOutlineDelete />
@@ -85,7 +85,7 @@ const Preview = ({ doc, remove }: PreviewProps) => {
           </Box>
         )}
       </Box>
-      {router.pathname.includes("/create-snippet") ? (
+      {router.pathname.includes("/dashboard/new") ? (
         <Box mt={3} transition="0.5s ease-out" backgroundColor="inherit">
           <Tabs px={0} defaultIndex={1}>
             <TabList>

@@ -64,7 +64,7 @@ const IndexHero = () => {
                 as="a"
                 colorScheme="gray"
                 leftIcon={<FcGoogle />}
-                onClick={() => signIn("google", { callbackUrl: "/snippets" })}
+                onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
                 isLoading={status === "loading"}
                 disabled={status === "loading"}
                 display="inline-flex"
@@ -83,7 +83,7 @@ const IndexHero = () => {
                 colorScheme="gray"
                 display="inline-flex"
                 leftIcon={<AiFillGithub />}
-                onClick={() => signIn("github", { callbackUrl: "/snippets" })}
+                onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
                 isLoading={status === "loading"}
                 disabled={status === "loading"}
                 alignItems="center"
@@ -99,7 +99,7 @@ const IndexHero = () => {
             </>
           ) : (
             <>
-              <Link href="/snippets" passHref>
+              <Link href="/dashboard" passHref>
                 <Button
                   as="a"
                   colorScheme="gray"
@@ -114,7 +114,7 @@ const IndexHero = () => {
                   My Snippets
                 </Button>
               </Link>
-              <Link href="/create-snippet" passHref>
+              <Link href="/dashboard/new" passHref>
                 <Button
                   as="a"
                   colorScheme="gray"
@@ -143,16 +143,9 @@ const IndexHero = () => {
           w="full"
           rounded="lg"
           shadow="2xl"
-          src="https://cdn.dribbble.com/users/126500/screenshots/11502981/media/999bf22f10e182beacf2fb4f8324542f.png"
-          alt="Hellonext feedback boards software screenshot"
+          src="/images/screenshot.png"
+          alt="Seraph app screenshot"
         />
-        {/* <Image
-          w="full"
-          rounded="lg"
-          shadow="2xl"
-          src="https://cdn.dribbble.com/users/200066/screenshots/5620039/media/e58ddcba6eebf0d635184ef248de96ed.jpg?compress=1&resize=1200x900&vertical=top"
-          alt="Hellonext feedback boards software screenshot"
-        /> */}
       </Box>
     </Box>
   );

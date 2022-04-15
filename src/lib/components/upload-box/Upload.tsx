@@ -233,8 +233,7 @@ export default function UploadBox({
         <form onSubmit={(e) => handleSubmit(e)}>
           <Box mt={7}>
             <Text fontSize="xs" mb={2}>
-              <sup>*</sup>Syntax highlighting is not supported for some file
-              types.
+              <sup>*</sup>Syntax highlighting may not work for some file types.
             </Text>
             {docs?.map((doc, index) => (
               <Box key={Math.floor(Math.random() * 103975803405 + index)}>
