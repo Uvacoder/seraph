@@ -22,11 +22,14 @@ const customJestConfig = {
     "<rootDir>/.next/",
     "<rootDir>/node_modules/",
     "<rootDir>/__tests__/test-utils.tsx",
-    "<rootDir>/__tests__/wrapper.tsx",
+    "<rootDir>/cypress",
+    // I ignored react-syntax-highlighter because it uses ESM modules which
+    // Jest doesn't support out of the box
+    "/node_modules/(?!(react-syntax-highlighter)/)",
   ],
   coveragePathIgnorePatterns: [
     "<rootDir>/__tests__/test-utils.tsx",
-    "<rootDir>/__tests__/wrapper.tsx",
+    "<rootDir>/cypress",
   ],
   moduleNameMapper: {
     // Handle module aliases
@@ -34,6 +37,7 @@ const customJestConfig = {
 
     // "^pages/(.*)$": "<rootDir>/pages/$1",
   },
+  transform: {}
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

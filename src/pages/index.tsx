@@ -16,7 +16,7 @@ const IndexHero = () => {
   const { data: session, status } = useSession();
 
   return (
-    <Box px={{ base: 0, sm: 8 }} py={24} mx="auto">
+    <Box px={{ base: 0, sm: 8 }} py={24} mx="auto" className="unread-count">
       <Box
         w={{ base: "full", md: 11 / 12, xl: 9 / 12 }}
         mx="auto"
@@ -140,6 +140,7 @@ const IndexHero = () => {
         textAlign="center"
       >
         <Image
+          as="img"
           w="full"
           rounded="lg"
           shadow="2xl"

@@ -91,9 +91,21 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue("white", "gray.800")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>New Snippet</MenuItem>
-              <MenuItem>My Snippets</MenuItem>
-              <MenuItem>Source Code</MenuItem>
+              <Link href="/dashboard/new" passHref>
+                <MenuItem>New Snippet</MenuItem>
+              </Link>
+              <Link href="/dashboard" passHref>
+                <MenuItem>My Snippets</MenuItem>
+              </Link>
+              <MenuItem>
+                <a
+                  href="https://github.com/lucky-chap/seraph"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Source Code
+                </a>
+              </MenuItem>
               <MenuDivider />
               <MenuItem onClick={() => signOut({ callbackUrl: "/" })}>
                 Sign out

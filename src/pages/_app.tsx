@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable react/jsx-props-no-spreading */
 import "nprogress/nprogress.css";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
@@ -35,8 +35,9 @@ const MyApp = ({
     };
   }, []);
   return (
-    <SessionProvider session={session}>
-      <ChakraProvider theme={customTheme}>
+    <ChakraProvider theme={customTheme}>
+      <CSSReset />
+      <SessionProvider session={session}>
         <Head>
           <meta
             name="viewport"
@@ -47,8 +48,8 @@ const MyApp = ({
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </ChakraProvider>
-    </SessionProvider>
+      </SessionProvider>
+    </ChakraProvider>
   );
 };
 

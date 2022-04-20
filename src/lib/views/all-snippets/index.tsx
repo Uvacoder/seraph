@@ -77,8 +77,9 @@ const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
         justifyContent="space-between"
         alignContent="center"
         flexWrap="wrap"
+        maxW={{ base: "full", sm: "90%" }}
         mt={10}
-        mx={4}
+        mx="auto"
       >
         <Text
           color={colorMode === "light" ? "gray.800" : "white"}
@@ -86,21 +87,22 @@ const AllSnippets = ({ snippets }: { snippets: SnippetProps[] }) => {
           letterSpacing="wide"
           fontSize="lg"
           textTransform="uppercase"
-          ml="2"
+          ml={7}
         >
           Your snippets
         </Text>
-        <Box>
+        <Box ml={{ base: 7, sm: 0 }} mt={{ base: "3px", sm: 0 }}>
           <Badge rounded="full" px="2" alignContent="center" colorScheme="teal">
             {snippets?.length} in total
           </Badge>
         </Box>
       </Box>
       <SimpleGrid
-        columns={{ base: 1, sm: 2, md: 3 }}
+        columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
         spacingX={4}
         // mx="auto"
         maxW={{ base: "full", sm: "90%" }}
+        mx="auto"
         display="flex"
         flexDirection={{ base: "column", md: "row" }}
         justifyContent="flex-start"

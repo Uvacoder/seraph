@@ -1,25 +1,10 @@
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
-import {
-  Box,
-  Menu,
-  MenuButton,
-  Button,
-  MenuList,
-  MenuItem,
-  useColorMode,
-  useToast,
-  RadioGroup,
-  Radio,
-  Text,
-} from "@chakra-ui/react";
-import Link from "next/link";
+import { Box, useColorMode, useToast, Text } from "@chakra-ui/react";
 import type React from "react";
 import { useMemo, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { BsArrowLeft } from "react-icons/bs";
-import { HiDotsVertical } from "react-icons/hi";
 
 import Preview from "../preview/Preview";
 import SaveButton from "../samples/SaveButton";

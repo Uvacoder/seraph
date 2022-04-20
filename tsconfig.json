@@ -28,7 +28,7 @@
     "**/*.tsx",
     "src",
     "commitlint.config.js"
-, "__tests__/test-utils.tsx"  ],
+, "__tests__/test-utils.tsx", "cypress/integration/next-auth.js"  ],
   "exclude": [
     "node_modules"
   ]
