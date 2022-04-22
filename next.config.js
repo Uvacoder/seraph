@@ -17,6 +17,10 @@ module.exports = withPWA({
   eslint: {
     dirs: ["src"],
   },
+  // did this because of docker
+  experimental: {
+    outputStandalone: true,
+  },
 });
 
 
